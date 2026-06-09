@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lottery Hub - Dashboard</title>
+    <link rel="stylesheet" href="dashboard-style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header with Wallet -->
+        <div class="header">
+            <div class="header-top">
+                <h1>🎮 Lottery Hub</h1>
+                <div class="wallet-section">
+                    <span class="wallet-label">💰 Balance:</span>
+                    <span class="wallet-amount" id="walletAmount">1000</span>
+                    <span class="points-unit">Pts</span>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('home')">🏠 Home</button>
+            <button class="tab-btn" onclick="showTab('history')">📜 History</button>
+            <button class="tab-btn" onclick="showTab('profile')">👤 Profile</button>
+        </div>
+
+        <!-- Home Tab - Games -->
+        <div id="home" class="tab-content active">
+            <div class="games-grid">
+                <!-- Color Prediction -->
+                <div class="game-card" onclick="startGame('color-prediction')">
+                    <div class="game-icon">🔴</div>
+                    <h3>Color Prediction</h3>
+                    <p>Pick a color</p>
+                    <span class="time-badge">1 Min</span>
+                </div>
+
+                <!-- Number Prediction -->
+                <div class="game-card" onclick="startGame('number-prediction')">
+                    <div class="game-icon">🔢</div>
+                    <h3>Number Prediction</h3>
+                    <p>0-9 Numbers</p>
+                    <span class="time-badge">3 Min</span>
+                </div>
+
+                <!-- K3 Dice -->
+                <div class="game-card" onclick="startGame('k3-dice')">
+                    <div class="game-icon">🎲</div>
+                    <h3>K3 Dice</h3>
+                    <p>3 Dice Game</p>
+                    <span class="time-badge">3 Min</span>
+                </div>
+
+                <!-- 5D Game -->
+                <div class="game-card" onclick="startGame('5d-game')">
+                    <div class="game-icon">🎯</div>
+                    <h3>5D Game</h3>
+                    <p>5 Digit Lottery</p>
+                    <span class="time-badge">5 Min</span>
+                </div>
+
+                <!-- Aviator -->
+                <div class="game-card" onclick="startGame('aviator')">
+                    <div class="game-icon">✈️</div>
+                    <h3>Aviator</h3>
+                    <p>Crash Game</p>
+                    <span class="time-badge">1 Min</span>
+                </div>
+
+                <!-- Racing -->
+                <div class="game-card" onclick="startGame('racing')">
+                    <div class="game-icon">🏎️</div>
+                    <h3>Racing</h3>
+                    <p>Car Race</p>
+                    <span class="time-badge">2 Min</span>
+                </div>
+
+                <!-- Scratch Card -->
+                <div class="game-card" onclick="startGame('scratch-card')">
+                    <div class="game-icon">🎫</div>
+                    <h3>Scratch Card</h3>
+                    <p>Instant Win</p>
+                    <span class="time-badge">Instant</span>
+                </div>
+
+                <!-- Spin Wheel -->
+                <div class="game-card" onclick="startGame('spin-wheel')">
+                    <div class="game-icon">🎡</div>
+                    <h3>Spin Wheel</h3>
+                    <p>Wheel Fortune</p>
+                    <span class="time-badge">2 Min</span>
+                </div>
+
+                <!-- Slots -->
+                <div class="game-card" onclick="startGame('slots')">
+                    <div class="game-icon">🎰</div>
+                    <h3>Slots Machine</h3>
+                    <p>Classic Slots</p>
+                    <span class="time-badge">Instant</span>
+                </div>
+
+                <!-- Baccarat -->
+                <div class="game-card" onclick="startGame('baccarat')">
+                    <div class="game-icon">🃏</div>
+                    <h3>Baccarat</h3>
+                    <p>Card Game</p>
+                    <span class="time-badge">2 Min</span>
+                </div>
+
+                <!-- Dragon Tiger -->
+                <div class="game-card" onclick="startGame('dragon-tiger')">
+                    <div class="game-icon">🐉</div>
+                    <h3>Dragon Tiger</h3>
+                    <p>Card Prediction</p>
+                    <span class="time-badge">1 Min</span>
+                </div>
+
+                <!-- Win Go -->
+                <div class="game-card" onclick="startGame('wingo')">
+                    <div class="game-icon">🎯</div>
+                    <h3>Win Go</h3>
+                    <p>Lottery Game</p>
+                    <span class="time-badge">1 Min</span>
+                </div>
+
+                <!-- Teen Patti -->
+                <div class="game-card" onclick="startGame('teen-patti')">
+                    <div class="game-icon">🃏</div>
+                    <h3>Teen Patti</h3>
+                    <p>Card Game</p>
+                    <span class="time-badge">3 Min</span>
+                </div>
+
+                <!-- Rummy -->
+                <div class="game-card" onclick="startGame('rummy')">
+                    <div class="game-icon">🎴</div>
+                    <h3>Rummy</h3>
+                    <p>Card Game</p>
+                    <span class="time-badge">5 Min</span>
+                </div>
+
+                <!-- Poker -->
+                <div class="game-card" onclick="startGame('poker')">
+                    <div class="game-icon">♠️</div>
+                    <h3>Poker</h3>
+                    <p>Poker Game</p>
+                    <span class="time-badge">3 Min</span>
+                </div>
+
+                <!-- Blackjack -->
+                <div class="game-card" onclick="startGame('blackjack')">
+                    <div class="game-icon">🎯</div>
+                    <h3>Blackjack</h3>
+                    <p>21 Card Game</p>
+                    <span class="time-badge">2 Min</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Tab -->
+        <div id="history" class="tab-content">
+            <div class="history-container">
+                <h2>Game History</h2>
+                <div id="historyList" class="history-list"></div>
+            </div>
+        </div>
+
+        <!-- Profile Tab -->
+        <div id="profile" class="tab-content">
+            <div class="profile-container">
+                <div class="profile-card">
+                    <h2>👤 My Profile</h2>
+                    <div class="profile-info">
+                        <p><strong>Phone:</strong> <span id="profilePhone">+91-XXXXXXXXXX</span></p>
+                        <p><strong>Total Balance:</strong> <span id="profileBalance">1000</span> Points</p>
+                        <p><strong>Total Games Played:</strong> <span id="profileGames">0</span></p>
+                        <p><strong>Total Wins:</strong> <span id="profileWins">0</span></p>
+                        <p><strong>Win Rate:</strong> <span id="profileWinRate">0%</span></p>
+                        <p><strong>Member Since:</strong> <span id="profileDate">Today</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Modal -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeGame()">&times;</button>
+            <iframe id="gameFrame" src="" style="width: 100%; height: 90vh; border: none; border-radius: 10px;"></iframe>
+        </div>
+    </div>
+
+    <script src="dashboard-script.js"></script>
+</body>
+</html>
