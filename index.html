@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lottery Hub - Entertainment Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="registration-card">
+            <!-- Header -->
+            <div class="header">
+                <h1 class="logo">🎮 Lottery Hub</h1>
+                <p class="subtitle">Entertainment Game - Points Only</p>
+            </div>
+
+            <!-- Registration Form -->
+            <form id="registrationForm" class="registration-form">
+                <h2>Register your phone</h2>
+
+                <!-- Phone Number Field -->
+                <div class="form-group">
+                    <label for="phone" class="form-label">
+                        <span class="icon">📱</span>
+                        Phone number
+                    </label>
+                    <div class="phone-input-wrapper">
+                        <input type="text" class="phone-code" value="+91" disabled>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            class="form-input" 
+                            placeholder="Please enter the phone number"
+                            pattern="[0-9]{10}"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <span class="icon">🔒</span>
+                        Set password
+                    </label>
+                    <div class="password-wrapper">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="form-input" 
+                            placeholder="Please enter password"
+                            minlength="6"
+                            required
+                        >
+                        <span class="toggle-password" onclick="togglePassword('password')">👁️</span>
+                    </div>
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div class="form-group">
+                    <label for="confirmPassword" class="form-label">
+                        <span class="icon">🔒</span>
+                        Confirm password
+                    </label>
+                    <div class="password-wrapper">
+                        <input 
+                            type="password" 
+                            id="confirmPassword" 
+                            class="form-input" 
+                            placeholder="Please enter password again"
+                            minlength="6"
+                            required
+                        >
+                        <span class="toggle-password" onclick="togglePassword('confirmPassword')">👁️</span>
+                    </div>
+                </div>
+
+                <!-- Invite Code Field -->
+                <div class="form-group">
+                    <label for="inviteCode" class="form-label">
+                        <span class="icon">🎟️</span>
+                        Invite code
+                    </label>
+                    <input 
+                        type="text" 
+                        id="inviteCode" 
+                        class="form-input" 
+                        placeholder="Please enter the invitation code (optional)"
+                    >
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <label for="agreeTerms">
+                        I have read and agree to <a href="#" class="link">Privacy Agreement</a>
+                    </label>
+                </div>
+
+                <!-- Register Button -->
+                <button type="submit" class="btn-register">Register</button>
+
+                <!-- Login Link -->
+                <div class="login-link">
+                    Already have an account? <a href="login.html">Login here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
