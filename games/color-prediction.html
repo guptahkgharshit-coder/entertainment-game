@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Prediction</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; }
+        .game-container { max-width: 500px; margin: 0 auto; background: white; border-radius: 15px; padding: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #667eea; margin-bottom: 10px; }
+        .timer { font-size: 24px; font-weight: 700; color: #FF6B6B; margin: 20px 0; text-align: center; }
+        .colors-section { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .color-btn { padding: 30px; border: 3px solid #e0e0e0; border-radius: 15px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .color-btn:hover { transform: scale(1.05); }
+        .red { background: linear-gradient(135deg, #FF6B6B, #FF5252); color: white; }
+        .green { background: linear-gradient(135deg, #4ECDC4, #44A08D); color: white; }
+        .violet { background: linear-gradient(135deg, #B366FF, #9D4EDD); color: white; }
+        .bet-section { margin: 20px 0; }
+        .bet-input { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; }
+        .multiplier { background: #f0f0f0; padding: 10px; text-align: center; margin: 10px 0; border-radius: 10px; font-weight: 600; }
+        .place-bet-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 15px; }
+        .place-bet-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+        .result-section { background: #f0f0f0; padding: 20px; border-radius: 10px; text-align: center; margin-top: 20px; display: none; }
+        .result-section.show { display: block; animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .countdown { margin: 20px 0; text-align: center; }
+        .progress-bar { width: 100%; height: 8px; background: #e0e0e0; border-radius: 10px; overflow: hidden; margin: 10px 0; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); animation: progress 60s linear; }
+        @keyframes progress { from { width: 100%; } to { width: 0%; } }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1>🔴 Color Prediction</h1>
+            <p>Pick Red, Green, or Violet</p>
+        </div>
+
+        <div class="countdown">
+            <div class="timer" id="timer">60</div>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+            <p id="status">Place your bet</p>
+        </div>
+
+        <div class="colors-section">
+            <button class="color-btn red" onclick="selectColor('red')">🔴 RED<br><span style="font-size: 12px;">2X</span></button>
+            <button class="color-btn green" onclick="selectColor('green')">🟢 GREEN<br><span style="font-size: 12px;">2X</span></button>
+            <button class="color-btn violet" onclick="selectColor('violet')">🟣 VIOLET<br><span style="font-size: 12px;">4.5X</span></button>
+        </div>
+
+        <div class="bet-section">
+            <label>Bet Amount:</label>
+            <input type="number" id="betAmount" class="bet-input" placeholder="Enter bet amount" value="10" min="1">
+            <div class="multiplier">Potential Win: <span id="potential">20</span> Points</div>
+        </div>
+
+        <button class="place-bet-btn" onclick="placeBet()">Place Bet</button>
+
+        <div class="result-section" id="resultSection">
+            <h2 id="resultText">Waiting for result...</h2>
+            <p id="resultAmount" style="font-size: 18px; margin: 10px 0;"></p>
+            <button class="place-bet-btn" onclick="playAgain()" style="margin-top: 10px;">Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedColor = null;
+        let betPlaced = false;
+        let gameRunning = true;
+        let timeLeft = 60;
+
+        document.getElementById('betAmount').addEventListener('input', function() {
+            const multiplier = selectedColor === 'violet' ? 4.5 : 2;
+            document.getElementById('potential').textContent = Math.floor(this.value * multiplier);
+        });
+
+        function selectColor(color) {
+            if (betPlaced) return;
+            selectedColor = color;
+            document.querySelectorAll('.color-btn').forEach(btn => btn.style.opacity = '0.5');
+            event.target.closest('.color-btn').style.opacity = '1';
+        }
+
+        function placeBet() {
+            if (!selectedColor) {
+                alert('Select a color first!');
+                return;
+            }
+            const bet = parseInt(document.getElementById('betAmount').value);
+            if (bet < 1) {
+                alert('Enter valid bet amount!');
+                return;
+            }
+            
+            betPlaced = true;
+            document.getElementById('status').textContent = 'Bet Placed! Waiting for result...';
+            startCountdown();
+        }
+
+        function startCountdown() {
+            const timerEl = document.getElementById('timer');
+            const interval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function endGame() {
+            const colors = ['red', 'green', 'violet'];
+            const winChance = Math.random();
+            const result = winChance < 0.25 ? selectedColor : colors[Math.floor(Math.random() * colors.length)];
+            
+            const bet = parseInt(document.getElementById('betAmount').value);
+            const multiplier = selectedColor === 'violet' ? 4.5 : 2;
+            const won = result === selectedColor;
+            const points = won ? Math.floor(bet * multiplier) : -bet;
+
+            const resultSection = document.getElementById('resultSection');
+            const resultText = document.getElementById('resultText');
+            const resultAmount = document.getElementById('resultAmount');
+
+            resultText.textContent = won ? '✅ You Won!' : '❌ You Lost!';
+            resultAmount.textContent = `${won ? '+' : ''}${points} Points`;
+            resultAmount.style.color = won ? '#27ae60' : '#e74c3c';
+            resultSection.classList.add('show');
+
+            // Update parent wallet
+            if (window.parent && window.parent.updateWalletFromGame) {
+                window.parent.updateWalletFromGame(points);
+            }
+        }
+
+        function playAgain() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
